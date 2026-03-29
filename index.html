@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>James Theakston | Frontend Developer & Chrome Extension Specialist</title>
+    <meta name="description" content="Portfolio of James Theakston, a Frontend Developer specializing in high-performance web interfaces, Chrome extensions, and modern web platforms like LiteStack.">
+    <meta name="keywords" content="James Theakston, Frontend Developer, Web Developer, Chrome Extension Developer, ClassCharts Improver, LiteStack, JavaScript, Portfolio">
+    <meta name="author" content="James Theakston">
+    <link rel="canonical" href="https://jamestheakston.pages.dev/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jamestheakston.pages.dev/">
+    <meta property="og:title" content="James Theakston | Frontend Developer">
+    <meta property="og:description" content="Building high-performance web interfaces and specialized Chrome extensions. Check out my featured projects like ClassCharts Improver and LiteStack.">
+    <meta property="og:image" content="https://jamestheakston.pages.dev/og-image.png">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jamestheakston.pages.dev/">
+    <meta property="twitter:title" content="James Theakston | Frontend Developer">
+    <meta property="twitter:description" content="Building high-performance web interfaces and specialized Chrome extensions.">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold' font-size='60'>JT</text></svg>">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "James Theakston",
+      "url": "https://jamestheakston.pages.dev/",
+      "jobTitle": "Frontend Developer",
+      "sameAs": [
+        "https://github.com/jamestheakston"
+      ]
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-blur {
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .extension-badge {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        }
+
+        .host-badge {
+            background: linear-gradient(135deg, #0ea5e9 0%, #2dd4bf 100%);
+        }
+
+        .verified-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .custom-tooltip {
+            visibility: hidden;
+            position: absolute;
+            bottom: 150%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 11px;
+            width: 220px;
+            white-space: normal;
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 50;
+            pointer-events: none;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            line-height: 1.4;
+        }
+
+        .custom-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1e293b transparent transparent transparent;
+        }
+
+        .verified-wrapper:hover .custom-tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .tech-icon-svg {
+            width: 32px;
+            height: 14px;
+            fill: #94a3b8;
+            transition: fill 0.3s;
+        }
+        
+        .tech-icon {
+            transition: color 0.3s ease;
+        }
+
+        .card-hover:hover .fa-chrome { color: #4285F4; }
+        .card-hover:hover .fa-js { color: #F7DF1E; }
+        .card-hover:hover .fa-html5 { color: #E34F26; }
+        .card-hover:hover .fa-css3-alt { color: #1572B6; }
+        .card-hover:hover .tech-icon-svg { fill: #f48120; }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .stage-hidden {
+            display: none !important;
+        }
+
+        .link-text:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <span class="font-bold text-xl tracking-tight cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">JT.</span>
+            <div class="space-x-8 text-sm font-medium">
+                <a href="#about" class="nav-link hover:text-indigo-600 transition-colors">About</a>
+                <a href="#projects" class="nav-link hover:text-indigo-600 transition-colors">Projects</a>
+                <a href="#contact" class="nav-link hover:text-indigo-600 transition-colors">Contact</a>
+                <a href="https://github.com/jamestheakston" target="_blank" class="hover:text-indigo-600 transition-colors">Github</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 pt-32 pb-20">
+        <section id="about" class="mb-32">
+            <div class="fade-in">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
+                    James <span class="text-indigo-600">Theakston</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-600 max-w-2xl leading-relaxed">
+                    Frontend Developer building high-performance web interfaces and specialized Chrome extensions.
+                </p>
+                <div class="mt-10 flex flex-wrap gap-4">
+                    <a href="https://github.com/jamestheakston" target="_blank" class="bg-slate-900 text-white px-8 py-3 rounded-full font-semibold card-hover flex items-center">
+                        <i class="fab fa-github mr-2"></i> Github
+                    </a>
+                    <a href="#projects" class="nav-link bg-white border border-slate-200 px-8 py-3 rounded-full font-semibold card-hover text-slate-700">
+                        View Projects
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="flex items-center justify-between mb-12 fade-in delay-1">
+                <h2 class="text-3xl font-bold">Featured Work</h2>
+                <div class="h-px flex-grow bg-slate-200 mx-8 hidden md:block"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <article class="bg-white p-8 rounded-3xl border border-slate-100 card-hover fade-in delay-2 shadow-sm relative group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fas fa-rocket text-xl"></i>
+                        </div>
+                        <div class="inline-block px-3 py-1 rounded-full text-xs font-bold extension-badge text-white mb-4 uppercase tracking-wider">
+                            Chrome Extension
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">ClassCharts Improver</h3>
+                        <p class="text-slate-600 mb-4 leading-relaxed">
+                            A powerful browser extension designed to enhance the ClassCharts UI, and add features such as a Goal Tracker and Personal Notes for students.
+                        </p>
+                        
+                        <div class="flex flex-col gap-3 mb-6">
+                            <div class="flex items-center gap-1">
+                                <a href="https://classchartsimprover.pages.dev" target="_blank" class="text-indigo-600 font-medium flex items-center text-sm w-fit group">
+                                    <i class="fas fa-link mr-2"></i> 
+                                    <span class="link-text">classchartsimprover.pages.dev</span>
+                                </a>
+                                <span class="verified-wrapper">
+                                    <i class="fas fa-circle-check text-indigo-500 text-xs cursor-help"></i>
+                                    <span class="custom-tooltip">Designed and hosted by James Theakston</span>
+                                </span>
+                            </div>
+
+                            <div class="flex items-center gap-1">
+                                <a href="https://chromewebstore.google.com/detail/classcharts-improver/kalmdpfngeebamgaeegkieojhbkbghoe" target="_blank" class="text-indigo-600 font-medium flex items-center text-sm w-fit group">
+                                    <i class="fas fa-link mr-2"></i> 
+                                    <span class="link-text">chromewebstore.com/detail...</span>
+                                </a>
+                                <span class="verified-wrapper">
+                                    <i class="fas fa-circle-xmark text-red-400 text-xs cursor-help"></i>
+                                    <span class="custom-tooltip">This is a third-party site. We cannot control its content, security, or data practices. Use with caution.</span>
+                                </span>
+                            </div>
+
+                            <a href="https://github.com/jamestheakston/classchartsimprover" target="_blank" class="text-slate-400 font-medium flex items-center text-xs hover:text-indigo-600 transition-colors w-fit">
+                                <i class="fab fa-github mr-2"></i> View Source Code
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-5 text-slate-400">
+                        <i class="fab fa-chrome tech-icon text-xl" title="Chrome Extension"></i>
+                        <i class="fab fa-js tech-icon text-xl" title="JavaScript"></i>
+                        <i class="fab fa-html5 tech-icon text-xl" title="HTML5"></i>
+                        <i class="fab fa-css3-alt tech-icon text-xl" title="CSS3"></i>
+                        <svg class="tech-icon-svg" viewBox="0 0 122.88 55.57" title="Cloud Services">
+                            <g>
+                                <path d="M84.52,52.58c0.76-2.59,0.47-4.97-0.79-6.73c-1.15-1.62-3.1-2.56-5.44-2.67L33.96,42.6 c-0.29,0-0.54-0.14-0.68-0.36c-0.14-0.21-0.18-0.5-0.11-0.79c0.14-0.43,0.58-0.76,1.04-0.79l44.73-0.58 c5.29-0.25,11.06-4.54,13.07-9.8l2.56-6.66c0.11-0.29,0.14-0.58,0.07-0.86C91.76,9.72,80.13,0,66.23,0 c-12.82,0-23.7,8.28-27.59,19.77c-2.52-1.87-5.73-2.88-9.18-2.56c-6.16,0.61-11.09,5.55-11.7,11.7c-0.14,1.58-0.04,3.13,0.32,4.57 C8.03,33.78,0,41.99,0,52.11c0,0.9,0.07,1.8,0.18,2.7c0.07,0.43,0.43,0.76,0.86,0.76h81.82c0.47,0,0.9-0.32,1.04-0.79L84.52,52.58 L84.52,52.58z"/>
+                                <path d="M98.64,24.09c-0.4,0-0.83,0-1.22,0.04c-0.29,0-0.54,0.22-0.65,0.5l-1.73,6.01c-0.76,2.59-0.47,4.97,0.79,6.73 c1.15,1.62,3.1,2.56,5.44,2.67l9.44,0.58c0.29,0,0.54,0.14,0.68,0.36c0.14,0.22,0.18,0.54,0.11,0.79 c-0.14,0.43-0.58,0.76-1.04,0.79l-9.83,0.58c-5.33,0.25-11.06,4.54-13.07,9.79l-0.72,1.84c-0.14,0.36,0.11,0.72,0.5,0.72h33.78 c0.4,0,0.76-0.25,0.86-0.65c0.58-2.09,0.9-4.29,0.9-6.55C122.88,34.97,112,24.09,98.64,24.09L98.64,24.09z"/>
+                            </g>
+                        </svg>
+                    </div>
+                </article>
+
+                <article class="bg-white p-8 rounded-3xl border border-slate-100 card-hover fade-in delay-3 shadow-sm relative group flex flex-col justify-between h-full">
+                    <div>
+                        <div class="w-12 h-12 bg-sky-50 text-sky-600 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fas fa-cloud-arrow-up text-xl"></i>
+                        </div>
+                        <div class="inline-block px-3 py-1 rounded-full text-xs font-bold host-badge text-white mb-4 uppercase tracking-wider">
+                            Web Platform
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">LiteStack</h3>
+                        <p class="text-slate-600 mb-4 leading-relaxed">
+                            A modern, free web hosting solution designed for developers to deploy their frontend projects quickly and efficiently.
+                        </p>
+                        
+                        <div class="flex flex-col gap-2 mb-6">
+                            <div class="flex items-center gap-1">
+                                <a href="https://litestack.pages.dev" target="_blank" class="text-indigo-600 font-medium flex items-center text-sm w-fit group">
+                                    <i class="fas fa-link mr-2"></i> 
+                                    <span class="link-text">litestack.pages.dev</span>
+                                </a>
+                                <span class="verified-wrapper">
+                                    <i class="fas fa-circle-check text-indigo-500 text-xs cursor-help"></i>
+                                    <span class="custom-tooltip">Designed and hosted by James Theakston</span>
+                                </span>
+                            </div>
+                            <a href="https://github.com/jamestheakston/litestack" target="_blank" class="text-slate-500 font-medium flex items-center text-xs hover:text-indigo-600 transition-colors w-fit">
+                                <i class="fab fa-github mr-2"></i> View Source Code
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-5 text-slate-400">
+                        <i class="fab fa-js tech-icon text-xl" title="JavaScript"></i>
+                        <i class="fab fa-html5 tech-icon text-xl" title="HTML5"></i>
+                        <i class="fab fa-css3-alt tech-icon text-xl" title="CSS3"></i>
+                        <svg class="tech-icon-svg" viewBox="0 0 122.88 55.57" title="Cloud Services">
+                            <g>
+                                <path d="M84.52,52.58c0.76-2.59,0.47-4.97-0.79-6.73c-1.15-1.62-3.1-2.56-5.44-2.67L33.96,42.6 c-0.29,0-0.54-0.14-0.68-0.36c-0.14-0.21-0.18-0.5-0.11-0.79c0.14-0.43,0.58-0.76,1.04-0.79l44.73-0.58 c5.29-0.25,11.06-4.54,13.07-9.8l2.56-6.66c0.11-0.29,0.14-0.58,0.07-0.86C91.76,9.72,80.13,0,66.23,0 c-12.82,0-23.7,8.28-27.59,19.77c-2.52-1.87-5.73-2.88-9.18-2.56c-6.16,0.61-11.09,5.55-11.7,11.7c-0.14,1.58-0.04,3.13,0.32,4.57 C8.03,33.78,0,41.99,0,52.11c0,0.9,0.07,1.8,0.18,2.7c0.07,0.43,0.43,0.76,0.86,0.76h81.82c0.47,0,0.9-0.32,1.04-0.79L84.52,52.58 L84.52,52.58z"/>
+                                <path d="M98.64,24.09c-0.4,0-0.83,0-1.22,0.04c-0.29,0-0.54,0.22-0.65,0.5l-1.73,6.01c-0.76,2.59-0.47,4.97,0.79,6.73 c1.15,1.62,3.1,2.56,5.44,2.67l9.44,0.58c0.29,0,0.54,0.14,0.68,0.36c0.14,0.22,0.18,0.54,0.11,0.79 c-0.14,0.43-0.58,0.76-1.04,0.79l-9.83,0.58c-5.33,0.25-11.06,4.54-13.07,9.79l-0.72,1.84c-0.14,0.36,0.11,0.72,0.5,0.72h33.78 c0.4,0,0.76-0.25,0.86-0.65c0.58-2.09,0.9-4.29,0.9-6.55C122.88,34.97,112,24.09,98.64,24.09L98.64,24.09z"/>
+                            </g>
+                        </svg>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="contact" class="mt-32 fade-in">
+            <div class="bg-white p-10 md:p-16 rounded-[3rem] border border-slate-100 shadow-sm overflow-hidden relative">
+                <div class="max-w-xl">
+                    <h2 class="text-4xl font-bold mb-4">Let's Connect</h2>
+                    <p class="text-slate-500 text-lg mb-10 leading-relaxed">
+                        I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                    </p>
+
+                    <div id="form-container">
+                        <form id="portfolio-form" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="email" class="block text-xs font-bold mb-2 text-slate-700 uppercase tracking-widest">Email Address</label>
+                                    <input type="email" id="email" name="email" required placeholder="your@email.com"
+                                        class="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:bg-white transition-all text-slate-900">
+                                </div>
+                                <div>
+                                    <label for="subject" class="block text-xs font-bold mb-2 text-slate-700 uppercase tracking-widest">Subject</label>
+                                    <input type="text" id="subject" name="subject" placeholder="What's this about?"
+                                        class="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:bg-white transition-all text-slate-900">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-xs font-bold mb-2 text-slate-700 uppercase tracking-widest">Your Message</label>
+                                <textarea id="message" name="message" required rows="5" placeholder="Write your message here..."
+                                    class="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-200 focus:bg-white transition-all text-slate-900 resize-none"></textarea>
+                            </div>
+                            <button type="submit" id="submit-btn" class="inline-flex items-center justify-center bg-indigo-600 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
+                                Send Message <i class="fas fa-paper-plane ml-3 text-sm"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="success-stage" class="stage-hidden flex flex-col items-start py-4">
+                        <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6 text-2xl">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h3 class="text-3xl font-bold text-slate-800">Message Sent!</h3>
+                        <p class="text-slate-500 text-lg mt-2 mb-8">Thank you for reaching out. I'll get back to you as soon as possible.</p>
+                        <button onclick="resetForm()" class="text-indigo-600 font-bold hover:underline">Send another message</button>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:block absolute -right-20 -bottom-20 w-80 h-80 bg-indigo-50 rounded-full opacity-50 blur-3xl" aria-hidden="true"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+        <p>&copy; <span id="current-year"></span> James Theakston.</p>
+        <div class="flex space-x-6 mt-4 md:mt-0">
+            <a href="https://github.com/jamestheakston" target="_blank" class="hover:text-slate-900 transition-colors">Github</a>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        const form = document.getElementById('portfolio-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const formContainer = document.getElementById('form-container');
+        const successStage = document.getElementById('success-stage');
+
+        function resetForm() {
+            formContainer.classList.remove('stage-hidden');
+            successStage.classList.add('stage-hidden');
+            form.reset();
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Send Message <i class="fas fa-paper-plane ml-3 text-sm"></i>';
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Sending...';
+
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch('https://formspree.io/f/mgopvgjq', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    formContainer.classList.add('stage-hidden');
+                    successStage.classList.remove('stage-hidden');
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Send Message <i class="fas fa-paper-plane ml-3 text-sm"></i>';
+            }
+        });
+
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
