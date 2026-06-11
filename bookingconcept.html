@@ -4,64 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Booking Concept</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <style>
-        .overlay {
-            display: none;
-        }
-
-        video {
-            max-width: 320px;
-            width: 100%;
-            height: auto;
-        }
+        .overlay { display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .spinner { animation: spin 1s linear infinite; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen flex items-center justify-center font-sans text-slate-900">
 
-    <!-- Main Card -->
     <div class="text-center p-8 bg-white shadow-xl rounded-3xl border border-slate-100 max-w-sm w-full">
         <h1 class="text-2xl font-bold mb-2">Flight to Paris</h1>
-
-        <p class="text-slate-500 mb-6">
-            Limited seats remaining
-        </p>
-
-        <button id="bookBtn"
-            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-xl transition-all w-full flex items-center justify-center gap-2">
+        <p class="text-slate-500 mb-6">Limited seats remaining</p>
+        <button id="bookBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-xl transition-all w-full flex items-center justify-center gap-2">
             <i class="fas fa-ticket-alt"></i>
             Book Ticket
         </button>
     </div>
 
-    <!-- Processing Overlay -->
-    <div id="animationOverlay"
-        class="overlay fixed inset-0 bg-white/95 z-50 flex items-center justify-center p-4">
-
-        <div class="text-center max-w-md">
-
-            <video id="processingVideo"
-                class="mx-auto rounded-2xl shadow-lg"
-                muted
-                playsinline>
-                <source src="processing.mp4" type="video/mp4">
-            </video>
-
-            <p id="statusText"
-                class="mt-6 text-lg font-semibold text-slate-700">
-                Reserving your seat...
-            </p>
-
+    <div id="animationOverlay" class="overlay fixed inset-0 bg-white/95 z-50 flex items-center justify-center p-4">
+        <div id="contentArea" class="text-center max-w-md">
+            <div class="spinner text-blue-600 text-6xl mb-6">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <p id="statusText" class="text-lg font-semibold text-slate-700">Reserving your seat...</p>
         </div>
-
     </div>
 
     <script>
         const btn = document.getElementById('bookBtn');
         const overlay = document.getElementById('animationOverlay');
+        const contentArea = document.getElementById('contentArea');
+        const statusText = document.getElementById('statusText');
 
         const statusMessages = [
             "Joining booking queue...",
@@ -79,86 +54,41 @@
         ];
 
         btn.addEventListener('click', () => {
-
             btn.disabled = true;
-
             overlay.style.display = 'flex';
 
-            const video = document.getElementById('processingVideo');
-            const statusText = document.getElementById('statusText');
-
-            video.currentTime = 0;
-            video.play();
-
             let index = 0;
-
             const statusInterval = setInterval(() => {
-                statusText.textContent =
-                    statusMessages[index % statusMessages.length];
+                statusText.textContent = statusMessages[index % statusMessages.length];
                 index++;
-            }, 1000);
+            }, 800);
 
-            video.onended = () => {
-
+            setTimeout(() => {
                 clearInterval(statusInterval);
-
                 const gotTicket = Math.random() < 0.5;
+                const ms = (Math.random() * 0.25 + 0.01).toFixed(3);
 
                 if (gotTicket) {
-
-                    const ms = (Math.random() * 0.25 + 0.01).toFixed(3);
-
-                    overlay.innerHTML = `
+                    contentArea.innerHTML = `
                         <div class="text-center bg-white p-8 rounded-3xl shadow-xl max-w-md">
-                            <div class="text-green-600 text-7xl mb-4">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-
-                            <h2 class="text-3xl font-bold text-green-600 mb-3">
-                                Ticket Secured
-                            </h2>
-
-                            <p class="text-slate-600 mb-6">
-                                Your booking request reached the system
-                                ${ms} seconds before another customer.
-                            </p>
-
-                            <button onclick="location.reload()"
-                                class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold">
-                                Book Another
-                            </button>
+                            <div class="text-green-600 text-7xl mb-4"><i class="fas fa-check-circle"></i></div>
+                            <h2 class="text-3xl font-bold text-green-600 mb-3">Ticket Secured</h2>
+                            <p class="text-slate-600 mb-6">Your booking request reached the system ${ms} seconds before another customer.</p>
+                            <button onclick="location.reload()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold">Book Another</button>
                         </div>
                     `;
-
                 } else {
-
-                    const ms = (Math.random() * 0.25 + 0.01).toFixed(3);
-
-                    overlay.innerHTML = `
+                    contentArea.innerHTML = `
                         <div class="text-center bg-white p-8 rounded-3xl shadow-xl max-w-md">
-                            <div class="text-red-600 text-7xl mb-4">
-                                <i class="fas fa-times-circle"></i>
-                            </div>
-
-                            <h2 class="text-3xl font-bold text-red-600 mb-3">
-                                Just Missed It
-                            </h2>
-
-                            <p class="text-slate-600 mb-6">
-                                Another customer completed their reservation
-                                ${ms} seconds before your request was processed.
-                            </p>
-
-                            <button onclick="location.reload()"
-                                class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold">
-                                Try Again
-                            </button>
+                            <div class="text-red-600 text-7xl mb-4"><i class="fas fa-times-circle"></i></div>
+                            <h2 class="text-3xl font-bold text-red-600 mb-3">Just Missed It</h2>
+                            <p class="text-slate-600 mb-6">Another customer completed their reservation ${ms} seconds before your request was processed.</p>
+                            <button onclick="location.reload()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold">Try Again</button>
                         </div>
                     `;
                 }
-            };
+            }, 5000);
         });
     </script>
-
 </body>
 </html>
