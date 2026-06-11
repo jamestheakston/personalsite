@@ -24,7 +24,7 @@
 
     <div id="animationOverlay" class="overlay fixed inset-0 bg-white/95 z-50 flex items-center justify-center p-4">
         <div id="contentArea" class="text-center max-w-md">
-            <video id="processingVideo" class="mx-auto rounded-2xl shadow-lg" muted playsinline loop>
+            <video id="processingVideo" class="mx-auto rounded-2xl shadow-lg" muted playsinline>
                 <source src="processing.mp4" type="video/mp4">
             </video>
             <p id="statusText" class="mt-6 text-lg font-semibold text-slate-700">Reserving your seat...</p>
@@ -56,7 +56,9 @@
         btn.addEventListener('click', () => {
             btn.disabled = true;
             overlay.style.display = 'flex';
-            video.play();
+            
+            video.currentTime = 0;
+            video.play().catch(e => console.log("Video autoplay prevented:", e));
 
             let index = 0;
             const statusInterval = setInterval(() => {
