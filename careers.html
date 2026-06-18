@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Careers Browser | Find Jobs in Your Area</title>
-    <meta name="description" content="Browse job opportunities in your area using our careers browser powered by Indeed.">
-    <meta name="keywords" content="careers, jobs, job search, Indeed, employment">
+    <title>Leaflet Jobs | Find Your Next Opportunity</title>
+    <meta name="description" content="Browse job opportunities with Leaflet Jobs. Find tech, engineering, and volunteer positions across the UK.">
+    <meta name="keywords" content="careers, jobs, tech jobs, engineering, volunteer, Leaflet Jobs">
     <meta name="author" content="James Theakston">
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%234f46e5'/><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold' font-size='60'>JT</text></svg>">
@@ -77,7 +77,52 @@
         }
 
         .job-card:hover {
-            border-left-color: #6366f1;
+            border-left-color: #059669;
+        }
+
+        .verified-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .custom-tooltip {
+            visibility: hidden;
+            position: absolute;
+            bottom: 150%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 11px;
+            width: 220px;
+            white-space: normal;
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+            z-index: 50;
+            pointer-events: none;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            line-height: 1.4;
+        }
+
+        .custom-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1e293b transparent transparent transparent;
+        }
+
+        .verified-wrapper:hover .custom-tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
         }
     </style>
 </head>
@@ -85,11 +130,19 @@
 
     <nav class="fixed top-0 w-full z-50 nav-blur border-b border-slate-200">
         <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-            <span class="font-bold text-xl tracking-tight cursor-pointer" onclick="window.location.href='index.html'">JT.</span>
+            <div class="flex items-center space-x-3">
+                <div class="bg-emerald-600 text-white p-2 rounded-lg">
+                    <i class="fa-solid fa-leaf text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-bold text-xl tracking-tight cursor-pointer" onclick="window.location.href='index.html'">Leaflet Jobs</span>
+                    <p class="text-xs text-slate-500 font-medium">Find Your Next Opportunity</p>
+                </div>
+            </div>
             <div class="space-x-8 text-sm font-medium">
-                <a href="index.html" class="nav-link hover:text-indigo-600 transition-colors">Portfolio</a>
-                <a href="careers.html" class="nav-link text-indigo-600 font-semibold">Careers</a>
-                <a href="index.html#contact" class="nav-link hover:text-indigo-600 transition-colors">Contact</a>
+                <a href="index.html" class="nav-link hover:text-emerald-600 transition-colors">Portfolio</a>
+                <a href="careers.html" class="nav-link text-emerald-600 font-semibold">Jobs</a>
+                <a href="index.html#contact" class="nav-link hover:text-emerald-600 transition-colors">Contact</a>
             </div>
         </div>
     </nav>
@@ -97,37 +150,91 @@
     <main class="max-w-5xl mx-auto px-6 pt-32 pb-20">
         <section class="mb-12 fade-in">
             <h1 class="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
-                Careers <span class="text-indigo-600">Browser</span>
+                Leaflet <span class="text-emerald-600">Jobs</span>
             </h1>
             <p class="text-xl text-slate-600 max-w-2xl leading-relaxed">
-                Find tech and IT job opportunities across the UK. Search live job feeds without API authentication.
+                Find your next opportunity. Browse tech, engineering, and volunteer positions across the UK.
             </p>
         </section>
 
+        <!-- Featured Job Card -->
         <section class="mb-12 fade-in delay-1">
-            <div class="bg-slate-900 rounded-3xl p-8 md:p-10 shadow-xl relative overflow-hidden">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_50%)]"></div>
-                
-                <div class="relative z-10 max-w-2xl">
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-2">Find UK Tech & IT Positions</h2>
-                    <p class="text-slate-400 text-sm md:text-base mb-6">Queries live, unauthenticated aggregate job feeds across Great Britain directly in your browser.</p>
-                    
-                    <form id="job-search-form" class="bg-white p-2 rounded-xl shadow-md flex flex-col sm:flex-row gap-2">
-                        <div class="flex-grow flex items-center px-3">
-                            <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2.5"></i>
-                            <input type="text" id="keyword-input" placeholder="Search keywords (e.g. Remote, Developer, Manchester)..." class="w-full py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none">
-                        </div>
-                        <div class="flex gap-2">
-                            <button type="button" id="geo-btn" class="bg-slate-700 hover:bg-slate-800 text-white font-semibold text-sm px-4 py-3 rounded-lg transition duration-150 flex items-center justify-center gap-2 shrink-0">
-                                <i class="fa-solid fa-location-crosshairs"></i>
-                                <span class="hidden sm:inline">Near Me</span>
-                            </button>
-                            <button type="submit" id="search-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-6 py-3 rounded-lg transition duration-150 flex items-center justify-center gap-2 shrink-0">
-                                Search Feed
-                            </button>
-                        </div>
-                    </form>
+            <div class="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-3xl p-8 md:p-10 shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-4 py-2 rounded-bl-2xl">
+                    ⭐ FEATURED
                 </div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4">ClassCharts Improver Contributor</h2>
+                    <p class="text-emerald-100 text-sm md:text-base mb-6">Help improve and develop features for ClassCharts Improver, a free browser extension that enhances the ClassCharts UI for students.</p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                            <div class="text-emerald-200 text-xs mb-1">Salary</div>
+                            <div class="text-white font-bold">£0 (Volunteering)</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                            <div class="text-emerald-200 text-xs mb-1">Age Required</div>
+                            <div class="text-white font-bold">12-15</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                            <div class="text-emerald-200 text-xs mb-1">Location</div>
+                            <div class="text-white font-bold">Manchester, UK</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                            <div class="text-emerald-200 text-xs mb-1">Type</div>
+                            <div class="text-white font-bold">Remote</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="verified-wrapper relative">
+                                <span class="text-white font-semibold">Offered by James Theakston</span>
+                                <img src="https://img.icons8.com/color/48/instagram-verified--v1.png" alt="Verified" class="w-5 h-5 ml-2 inline-block cursor-help">
+                                <div class="custom-tooltip">
+                                    This is the person who made Leaflet Jobs
+                                </div>
+                            </div>
+                        </div>
+                        <a href="https://classchartsimprover.pages.dev" target="_blank" class="bg-white text-emerald-700 hover:bg-emerald-50 font-semibold text-sm px-6 py-3 rounded-xl transition duration-150 flex items-center gap-2">
+                            Apply Now <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-4 text-emerald-200 text-xs">
+                        Offered through Leaflet Jobs
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12 fade-in delay-2">
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
+                <h2 class="text-2xl font-bold mb-6">Search Jobs</h2>
+                <form id="job-search-form" class="bg-slate-50 p-2 rounded-xl flex flex-col sm:flex-row gap-2">
+                    <div class="flex-grow flex items-center px-3">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 mr-2.5"></i>
+                        <input type="text" id="keyword-input" placeholder="Filter roles (e.g. React, Python, Remote, UK)..." class="w-full py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none bg-transparent">
+                    </div>
+                    <div class="flex gap-2">
+                        <button type="button" id="geo-btn" class="bg-slate-700 hover:bg-slate-800 text-white font-semibold text-sm px-4 py-3 rounded-lg transition duration-150 flex items-center justify-center gap-2 shrink-0">
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                            <span class="hidden sm:inline">Near Me</span>
+                        </button>
+                        <button type="submit" id="search-btn" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm px-6 py-3 rounded-lg transition duration-150 flex items-center justify-center gap-2 shrink-0">
+                            Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Default Jobs Section -->
+        <section class="mb-12 fade-in delay-2">
+            <h2 class="text-2xl font-bold mb-6">Latest Opportunities</h2>
+            <div id="default-jobs" class="space-y-4">
+                <!-- Sample jobs will be loaded here -->
             </div>
         </section>
 
@@ -135,22 +242,22 @@
             <div id="results-bar" class="text-sm font-semibold text-slate-500 mb-4 hidden"></div>
 
             <div id="loading-spinner" class="hidden text-center py-20">
-                <i class="fa-solid fa-circle-notch fa-spin text-3xl text-indigo-600 mb-3"></i>
-                <p class="text-slate-500 text-sm font-medium">Parsing live UK data feeds...</p>
+                <i class="fa-solid fa-circle-notch fa-spin text-3xl text-emerald-600 mb-3"></i>
+                <p class="text-slate-500 text-sm font-medium">Searching for jobs...</p>
             </div>
 
-            <div id="error-alert" class="hidden bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg mb-6">
+            <div id="error-alert" class="hidden bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-6">
                 <div class="flex items-center">
-                    <i class="fa-solid fa-triangle-exclamation text-amber-600 text-lg mr-3"></i>
-                    <p id="error-text" class="text-sm text-amber-800"></p>
+                    <i class="fa-solid fa-triangle-exclamation text-red-600 text-lg mr-3"></i>
+                    <p id="error-text" class="text-sm text-red-700"></p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div id="jobs-container" class="lg:col-span-2 space-y-4">
                     <div class="text-center py-14 bg-white border border-dashed border-slate-300 rounded-xl">
-                        <i class="fa-solid fa-rss text-slate-300 text-4xl mb-3"></i>
-                        <p class="text-slate-400 text-sm font-medium">Click search to fetch active IT vacancies across the UK.</p>
+                        <i class="fa-solid fa-briefcase text-slate-300 text-4xl mb-3"></i>
+                        <p class="text-slate-400 text-sm font-medium">Search above to find jobs</p>
                     </div>
                 </div>
                 <div id="map-container" class="hidden lg:block">
@@ -160,16 +267,99 @@
         </section>
     </main>
 
-    <footer class="max-w-5xl mx-auto px-6 py-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
-        <p>&copy; <span id="current-year"></span> James Theakston.</p>
-        <div class="flex space-x-6 mt-4 md:mt-0">
-            <a href="index.html" class="hover:text-slate-900 transition-colors">Portfolio</a>
-            <a href="https://github.com/jamestheakston" target="_blank" class="hover:text-slate-900 transition-colors">Github</a>
+    <footer class="bg-white border-t border-slate-200 mt-auto">
+        <div class="max-w-6xl mx-auto px-4 py-5 text-center text-xs text-slate-400 font-medium">
+            © <span id="current-year"></span> Leaflet Jobs. Find your next opportunity.
         </div>
     </footer>
 
     <script>
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Load default sample jobs
+        const sampleJobs = [
+            {
+                title: 'Frontend Developer',
+                company: 'TechCorp',
+                location: 'Remote',
+                date: '2 days ago',
+                description: 'We are looking for an experienced Frontend Developer to join our team building modern web applications.',
+                link: '#'
+            },
+            {
+                title: 'Full Stack Engineer',
+                company: 'InnovateLabs',
+                location: 'London, UK',
+                date: '1 day ago',
+                description: 'Join our dynamic team as a Full Stack Engineer working on cutting-edge projects using React and Node.js.',
+                link: '#'
+            },
+            {
+                title: 'UI/UX Designer',
+                company: 'DesignStudio',
+                location: 'Manchester, UK',
+                date: '3 days ago',
+                description: 'Creative UI/UX Designer needed to craft beautiful and intuitive user experiences for our clients.',
+                link: '#'
+            }
+        ];
+
+        function loadDefaultJobs() {
+            const defaultJobsContainer = document.getElementById('default-jobs');
+            const containerFragment = document.createDocumentFragment();
+
+            sampleJobs.forEach((job, index) => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'bg-white p-5 border border-slate-200 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-200 transition duration-150 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 fade-in';
+                jobCard.style.animationDelay = `${index * 0.1}s`;
+
+                const leftPane = document.createElement('div');
+                leftPane.className = 'flex-grow';
+
+                const titleBox = document.createElement('div');
+                titleBox.className = 'flex flex-wrap items-center gap-2 mb-1.5';
+                
+                const jobTitle = document.createElement('h3');
+                jobTitle.className = 'text-base font-bold text-slate-900';
+                jobTitle.textContent = job.title;
+                titleBox.appendChild(jobTitle);
+
+                const specsBox = document.createElement('div');
+                specsBox.className = 'flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500 mb-2 font-semibold';
+                specsBox.innerHTML = `
+                    <span><i class="fa-solid fa-building text-slate-400 mr-1"></i> ${job.company}</span>
+                    <span><i class="fa-solid fa-location-dot text-slate-400 mr-1"></i> ${job.location}</span>
+                    <span><i class="fa-solid fa-calendar text-slate-400 mr-1"></i> ${job.date}</span>
+                `;
+
+                const briefDesc = document.createElement('p');
+                briefDesc.className = 'text-slate-600 text-xs line-clamp-2 max-w-3xl leading-relaxed';
+                briefDesc.textContent = job.description;
+
+                leftPane.appendChild(titleBox);
+                leftPane.appendChild(specsBox);
+                leftPane.appendChild(briefDesc);
+
+                const rightPane = document.createElement('div');
+                rightPane.className = 'w-full md:w-auto flex-shrink-0';
+                
+                const redirectLink = document.createElement('a');
+                redirectLink.href = job.link;
+                redirectLink.target = '_blank';
+                redirectLink.className = 'inline-flex items-center justify-center gap-1 w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg text-xs transition duration-150';
+                redirectLink.innerHTML = 'View Listing <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>';
+                rightPane.appendChild(redirectLink);
+
+                jobCard.appendChild(leftPane);
+                jobCard.appendChild(rightPane);
+                containerFragment.appendChild(jobCard);
+            });
+
+            defaultJobsContainer.appendChild(containerFragment);
+        }
+
+        // Load default jobs on page load
+        loadDefaultJobs();
 
         const searchForm = document.getElementById('job-search-form');
         const keywordInput = document.getElementById('keyword-input');
@@ -371,7 +561,7 @@
             searchBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Searching...';
 
             try {
-                const targetRssFeed = 'https://www.adzuna.co.uk/jobs/rss.xml?c=it-jobs';
+                const targetRssFeed = 'https://weworkremotely.com/categories/remote-programming-jobs.rss';
                 const feedConvertUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(targetRssFeed)}`;
 
                 const response = await fetch(feedConvertUrl);
@@ -386,8 +576,7 @@
                     const cleanTerm = keyword.toLowerCase();
                     matchingJobs = matchingJobs.filter(job => 
                         (job.title && job.title.toLowerCase().includes(cleanTerm)) ||
-                        (job.description && job.description.toLowerCase().includes(cleanTerm)) ||
-                        (job.author && job.author.toLowerCase().includes(cleanTerm))
+                        (job.description && job.description.toLowerCase().includes(cleanTerm))
                     );
                 }
 
@@ -400,7 +589,7 @@
                 errorAlert.classList.remove('hidden');
             } finally {
                 searchBtn.disabled = false;
-                searchBtn.innerHTML = 'Search Feed';
+                searchBtn.innerHTML = 'Search';
             }
         });
 
@@ -411,14 +600,14 @@
                 jobsContainer.innerHTML = `
                     <div class="text-center py-14 bg-white border border-slate-200 rounded-xl shadow-sm">
                         <i class="fa-solid fa-folder-open text-slate-300 text-4xl mb-2"></i>
-                        <p class="text-slate-500 text-sm font-medium">No positions found matching that keyword in the current feed. Try broadening your criteria.</p>
+                        <p class="text-slate-500 text-sm font-medium">No active positions matched your filter. Try a broader search keyword.</p>
                     </div>
                 `;
                 mapContainer.classList.add('hidden');
                 return;
             }
 
-            resultsBar.textContent = `Showing ${jobs.length} active position${jobs.length === 1 ? '' : 's'} in the UK`;
+            resultsBar.textContent = `Showing ${jobs.length} active position${jobs.length === 1 ? '' : 's'}`;
             resultsBar.classList.remove('hidden');
             mapContainer.classList.remove('hidden');
 
@@ -432,7 +621,7 @@
 
             jobs.forEach((job, index) => {
                 const jobCard = document.createElement('div');
-                jobCard.className = 'bg-white p-5 border border-slate-200 rounded-xl shadow-sm hover:shadow-md hover:border-indigo-200 transition duration-150 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 fade-in';
+                jobCard.className = 'bg-white p-5 border border-slate-200 rounded-xl shadow-sm hover:shadow-md hover:border-emerald-200 transition duration-150 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 fade-in';
                 jobCard.style.animationDelay = `${index * 0.05}s`;
 
                 const leftPane = document.createElement('div');
@@ -443,21 +632,23 @@
                 
                 const jobTitle = document.createElement('h3');
                 jobTitle.className = 'text-base font-bold text-slate-900';
-                jobTitle.innerHTML = job.title || 'Tech Specialist';
+                jobTitle.innerHTML = job.title || 'Software Developer';
                 titleBox.appendChild(jobTitle);
 
                 const specsBox = document.createElement('div');
                 specsBox.className = 'flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-500 mb-2 font-semibold';
                 
-                const authorClean = job.author ? job.author.replace(/<[^>]*>/g, '') : 'UK Recruiter';
+                // Extract company from job if available
+                const company = job.author ? job.author.replace(/<[^>]*>/g, '') : 'Tech Company';
                 specsBox.innerHTML = `
-                    <span><i class="fa-solid fa-building text-slate-400 mr-1"></i> ${authorClean}</span>
+                    <span><i class="fa-solid fa-building text-slate-400 mr-1"></i> ${company}</span>
+                    <span><i class="fa-solid fa-globe text-slate-400 mr-1"></i> Remote / Global / UK</span>
                     <span><i class="fa-solid fa-calendar text-slate-400 mr-1"></i> ${job.pubDate ? job.pubDate.split(' ')[0] : 'Recent'}</span>
                 `;
 
                 const briefDesc = document.createElement('p');
                 briefDesc.className = 'text-slate-600 text-xs line-clamp-2 max-w-3xl leading-relaxed';
-                briefDesc.innerHTML = job.description || 'Click apply to view full specifications on the provider job platform.';
+                briefDesc.innerHTML = job.description || 'Click view listing to inspect detailed frameworks and technical requirements.';
 
                 leftPane.appendChild(titleBox);
                 leftPane.appendChild(specsBox);
@@ -469,7 +660,7 @@
                 const redirectLink = document.createElement('a');
                 redirectLink.href = job.link || '#';
                 redirectLink.target = '_blank';
-                redirectLink.className = 'inline-flex items-center justify-center gap-1 w-full md:w-auto bg-slate-900 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-lg text-xs transition duration-150';
+                redirectLink.className = 'inline-flex items-center justify-center gap-1 w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg text-xs transition duration-150';
                 redirectLink.innerHTML = 'View Listing <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>';
                 rightPane.appendChild(redirectLink);
 
