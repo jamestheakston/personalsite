@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Client - Microsoft Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-16">
+
+    <!-- Header bar -->
+    <header class="border-b border-gray-800 bg-[#1a1a1a]/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="text-xs text-gray-400 hover:text-white transition-colors flex items-center gap-1">
+                    ← back to portfolio
+                </a>
+                <span class="text-gray-700">|</span>
+                <span class="text-xs font-medium text-gray-300">Software Store</span>
+            </div>
+            <div class="text-xs text-blue-400 font-medium bg-blue-500/10 px-3 py-1 rounded-full border border-blue-500/20">
+                v1.0 Stable
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <!-- Top App Header Section -->
+        <div class="flex flex-col sm:flex-row gap-6 items-start pb-8 border-b border-gray-800">
+            <!-- App Icon -->
+            <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-center p-4 shadow-xl shrink-0 overflow-hidden">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Oxygen480-actions-edit-find-user.svg/120px-Oxygen480-actions-edit-find-user.svg.png" alt="Feedback Client Logo" class="w-16 h-16 sm:w-20 sm:h-20 object-contain">
+            </div>
+
+            <!-- App Meta -->
+            <div class="flex-1">
+                <h1 class="text-2xl sm:text-3xl font-light tracking-tight text-white">Feedback Client</h1>
+                <p class="text-xs sm:text-sm text-blue-400 mt-1">James Theakston Software</p>
+                
+                <div class="flex flex-wrap items-center gap-3 mt-2 text-xs text-gray-400">
+                    <div class="flex items-center gap-1 text-gray-400">
+                        <span>No ratings yet</span>
+                    </div>
+                    <span>•</span>
+                    <span class="text-emerald-400 font-medium">Productivity & Utilities</span>
+                </div>
+
+                <p class="text-xs sm:text-sm text-gray-300 mt-3 max-w-2xl leading-relaxed">
+                    A quick and simple way to get star ratings from customers. Designed for low-end systems.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="mt-6 flex flex-wrap items-center gap-3">
+                    <a href="/assets/projects/feedbackclient/setup.exe" download class="px-6 py-2.5 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-medium transition-colors shadow-lg flex items-center gap-2">
+                        <span>Install</span>
+                        <span class="text-[10px] bg-blue-700 px-1.5 py-0.5 rounded text-blue-100">Free</span>
+                    </a>
+                    <button onclick="copyLink()" id="copyBtn" class="px-5 py-2.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs sm:text-sm font-medium transition-colors border border-gray-700">
+                        Copy link
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="mt-8 space-y-8">
+            
+            <!-- Screenshots Section -->
+            <div>
+                <h2 class="text-lg font-medium text-white mb-4">Screenshots</h2>
+                <div class="bg-gray-900/60 border border-gray-800 rounded-xl p-4 flex gap-4 overflow-x-auto no-scrollbar">
+                    <!-- Screenshot 1 -->
+                    <div class="w-72 h-40 bg-gray-800 rounded-lg flex-shrink-0 flex items-center justify-center border border-gray-700/50 relative overflow-hidden group cursor-pointer" onclick="openLightbox('/assets/projects/feedbackclient/ratingfullscreen.png', 'Fullscreen Rating Interface')">
+                        <img src="/assets/projects/feedbackclient/ratingfullscreen.png" alt="Fullscreen Rating" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/288x160/222/aaa?text=Fullscreen+Rating'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
+                            <span class="text-xs text-gray-300 font-medium">Fullscreen Rating Interface</span>
+                        </div>
+                    </div>
+                    <!-- Screenshot 2 -->
+                    <div class="w-72 h-40 bg-gray-800 rounded-lg flex-shrink-0 flex items-center justify-center border border-gray-700/50 relative overflow-hidden group cursor-pointer" onclick="openLightbox('/assets/projects/feedbackclient/ratingwindow.png', 'Windowed Mode')">
+                        <img src="/assets/projects/feedbackclient/ratingwindow.png" alt="Windowed Mode" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/288x160/222/aaa?text=Windowed+Mode'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
+                            <span class="text-xs text-gray-300 font-medium">Windowed Mode</span>
+                        </div>
+                    </div>
+                    <!-- Screenshot 3 -->
+                    <div class="w-72 h-40 bg-gray-800 rounded-lg flex-shrink-0 flex items-center justify-center border border-gray-700/50 relative overflow-hidden group cursor-pointer" onclick="openLightbox('/assets/projects/feedbackclient/thanks.png', 'Thank You Screen')">
+                        <img src="/assets/projects/feedbackclient/thanks.png" alt="Thank You Screen" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/288x160/222/aaa?text=Thank+You+Screen'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
+                            <span class="text-xs text-gray-300 font-medium">Thank You Screen</span>
+                        </div>
+                    </div>
+                    <!-- Screenshot 4 -->
+                    <div class="w-72 h-40 bg-gray-800 rounded-lg flex-shrink-0 flex items-center justify-center border border-gray-700/50 relative overflow-hidden group cursor-pointer" onclick="openLightbox('/assets/projects/feedbackclient/settings.png', 'Customizable Settings')">
+                        <img src="/assets/projects/feedbackclient/settings.png" alt="Customizable Settings" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/288x160/222/aaa?text=Settings+Menu'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
+                            <span class="text-xs text-gray-300 font-medium">Customizable Settings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description Section -->
+            <div class="bg-gray-900/40 border border-gray-800 rounded-xl p-6">
+                <h2 class="text-lg font-medium text-white mb-3">Description</h2>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-4">
+                    Feedback Client provides a lightning-fast star rating interface for customers. Easily gather star ratings seamlessly with zero bloatware.
+                </p>
+                <h3 class="text-sm font-medium text-white mb-2">Key Features:</h3>
+                <ul class="list-disc list-inside text-xs sm:text-sm text-gray-400 space-y-1">
+                    <li>Quick and simple star rating collection workflow.</li>
+                    <li>Lightweight executable designed for low-end hardware.</li>
+                </ul>
+            </div>
+
+            <!-- System Requirements Section -->
+            <div class="bg-gray-900/40 border border-gray-800 rounded-xl p-6">
+                <h2 class="text-lg font-medium text-white mb-4">System Requirements</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div class="border-b border-gray-800 pb-3">
+                        <span class="text-gray-500 block mb-1">Operating System</span>
+                        <span class="text-gray-200">Any Windows System</span>
+                    </div>
+                    <div class="border-b border-gray-800 pb-3">
+                        <span class="text-gray-500 block mb-1">Processor</span>
+                        <span class="text-gray-200">No specific requirements</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-500 block mb-1">Memory</span>
+                        <span class="text-gray-200">No specific RAM requirements</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-500 block mb-1">Storage</span>
+                        <span class="text-gray-200">~5 MB available space</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden flex flex-col items-center justify-center p-4">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-xl font-bold bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center">✕</button>
+        <img id="lightboxImg" src="" alt="Zoomed screenshot" class="max-w-full max-h-[80vh] rounded-lg border border-gray-700 shadow-2xl object-contain">
+        <p id="lightboxCaption" class="text-sm text-gray-300 mt-4 font-medium"></p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-gray-900 border border-gray-700 text-white text-xs px-4 py-3 rounded-lg shadow-2xl opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+        Link copied to clipboard!
+    </div>
+
+    <script>
+        function copyLink() {
+            const dummy = document.createElement('input');
+            document.body.appendChild(dummy);
+            dummy.value = window.location.href;
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2500);
+        }
+
+        function openLightbox(src, caption) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            const cap = document.getElementById('lightboxCaption');
+            img.src = src;
+            cap.textContent = caption;
+            lb.classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
