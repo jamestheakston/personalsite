@@ -1,2 +1,2 @@
 1.1.0
-https://jamestheakston.pages.dev/feedbackclient/feedbackclient-setup.exe
+https://jamestheakston.pages.dev/assets/projects/feedbackclient/setup.exe
