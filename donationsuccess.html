@@ -98,7 +98,7 @@
 
   <footer class="py-8 text-center text-xs text-stone-400 space-y-2">
     <div class="flex items-center justify-center gap-1.5 text-stone-500 font-medium">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-4 h-4">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="w-4 h-4 shrink-0">
         <defs>
           <linearGradient id="sc-foot-a" gradientUnits="userSpaceOnUse" x1="16" y1="20.6293" x2="16" y2="7.8394" gradientTransform="matrix(1 0 0 -1 0 34)">
             <stop offset="0" stop-color="#00d924"/>
@@ -127,6 +127,8 @@
   </div>
 
   <script>
+    const DONATE_URL = "https://donate.stripe.com/00wcN5cKpfD77KmeJz00000";
+
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('current-year').innerText = new Date().getFullYear();
     });
@@ -140,26 +142,17 @@
     }
 
     function copyLink() {
-      const currentUrl = window.location.href;
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(currentUrl).then(onCopySuccess);
-      } else {
-        const dummy = document.createElement('input');
-        document.body.appendChild(dummy);
-        dummy.value = currentUrl;
-        dummy.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummy);
-        onCopySuccess();
-      }
-    }
-
-    function onCopySuccess() {
+      const dummy = document.createElement('textarea');
+      document.body.appendChild(dummy);
+      dummy.value = DONATE_URL;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
       showToast();
     }
 
     function share(platform) {
-      const shareUrl = window.location.href;
+      const shareUrl = DONATE_URL;
       const shareText = "I just supported James Theakston's work!";
 
       if (platform === 'twitter') {
