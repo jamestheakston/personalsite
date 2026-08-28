@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Warning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .apple-squircle {
+      border-radius: 22.5%;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen flex items-center justify-center p-6 antialiased selection:bg-blue-500 selection:text-white">
+
+  <div class="w-full max-w-sm text-center flex flex-col items-center">
+    
+    <div class="w-20 h-20 bg-gradient-to-b from-[#007AFF] to-[#0063E6] apple-squircle flex items-center justify-center shadow-lg shadow-blue-500/20 mb-6">
+      <i data-lucide="hand" class="w-10 h-10 text-white stroke-[1.75]"></i>
+    </div>
+
+    <h1 id="warningTitle" class="text-[22px] font-semibold tracking-tight text-[#1d1d1f] mb-2.5">
+      Privacy Warning
+    </h1>
+
+    <p id="warningText" class="text-[15px] leading-normal text-[#86868b] max-w-[320px] mb-8 font-normal">
+    </p>
+
+    <div class="w-full flex flex-col gap-3">
+      <button id="actionButton" onclick="handleContinue()" class="w-full py-3.5 px-4 bg-[#007AFF] hover:bg-[#0071E3] active:scale-[0.98] text-white font-medium text-[15px] rounded-2xl transition-all shadow-sm">
+        Continue
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+             (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      
+      const titleEl = document.getElementById('warningTitle');
+      const textEl = document.getElementById('warningText');
+      const buttonEl = document.getElementById('actionButton');
+
+      if (!isIOS()) {
+        titleEl.innerText = "Device Not Supported";
+        textEl.innerText = "You cannot use LUS to login to this service from a non-iOS device.";
+        buttonEl.innerText = "Close";
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const serviceParam = params.get('service');
+
+      if (serviceParam) {
+        const decodedService = decodeURIComponent(serviceParam);
+        textEl.innerText = `If you continue, your LUS ID will be shared with ${decodedService}. Please make sure you trust this service before you continue.`;
+      } else {
+        titleEl.innerText = "Error";
+        textEl.innerText = "An unexpected error happened.";
+        buttonEl.innerText = "Close";
+      }
+    });
+
+    function handleContinue() {
+      window.close();
+    }
+  </script>
+</body>
+</html>
