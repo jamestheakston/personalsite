@@ -104,12 +104,10 @@
       window.close();
 
       setTimeout(() => {
-        if (!window.closed) {
-          document.getElementById('warningView').classList.add('hidden');
-          document.getElementById('fallbackView').classList.remove('hidden');
-          lucide.createIcons();
-        }
-      }, 300);
+        document.getElementById('warningView').classList.add('hidden');
+        document.getElementById('fallbackView').classList.remove('hidden');
+        lucide.createIcons();
+      }, 100);
     }
   </script>
 </body>
