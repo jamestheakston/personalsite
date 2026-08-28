@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full overflow-hidden">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Privacy Warning</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -15,12 +15,22 @@
     .apple-squircle {
       border-radius: 22.5%;
     }
+    @keyframes bounce-diagonal {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      50% {
+        transform: translate(-10px, -10px);
+      }
+    }
+    .animate-bounce-diagonal {
+      animation: bounce-diagonal 1s infinite;
+    }
   </style>
 </head>
-<body class="bg-white min-h-screen flex items-center justify-center p-6 antialiased selection:bg-blue-500 selection:text-white">
+<body class="bg-white h-full w-full flex items-center justify-center p-6 antialiased selection:bg-blue-500 selection:text-white overflow-hidden select-none touch-none">
 
-  <div class="w-full max-w-sm text-center flex flex-col items-center">
-    
+  <div id="warningView" class="w-full max-w-sm text-center flex flex-col items-center">
     <div class="w-20 h-20 bg-gradient-to-b from-[#007AFF] to-[#0063E6] apple-squircle flex items-center justify-center shadow-lg shadow-blue-500/20 mb-6">
       <i data-lucide="hand" class="w-10 h-10 text-white stroke-[1.75]"></i>
     </div>
@@ -37,6 +47,24 @@
         Continue
       </button>
     </div>
+  </div>
+
+  <div id="fallbackView" class="hidden fixed inset-0 bg-white flex flex-col items-center justify-center p-6 text-center z-50">
+    <div class="fixed top-4 left-4 flex items-center gap-2 text-[#007AFF] animate-bounce-diagonal">
+      <i data-lucide="arrow-up-left" class="w-16 h-16 stroke-[3]"></i>
+    </div>
+
+    <div class="w-20 h-20 bg-[#F5F5F7] apple-squircle flex items-center justify-center mb-6">
+      <i data-lucide="x-circle" class="w-10 h-10 text-[#007AFF] stroke-[1.75]"></i>
+    </div>
+
+    <h2 class="text-[22px] font-semibold tracking-tight text-[#1d1d1f] mb-2.5">
+      Window Hasn’t Closed
+    </h2>
+
+    <p class="text-[15px] leading-normal text-[#86868b] max-w-[280px] font-normal">
+      Tap the <strong class="text-[#1d1d1f] font-semibold">X</strong> icon in the top left to continue.
+    </p>
   </div>
 
   <script>
@@ -74,6 +102,14 @@
 
     function handleContinue() {
       window.close();
+
+      setTimeout(() => {
+        if (!window.closed) {
+          document.getElementById('warningView').classList.add('hidden');
+          document.getElementById('fallbackView').classList.remove('hidden');
+          lucide.createIcons();
+        }
+      }, 300);
     }
   </script>
 </body>
